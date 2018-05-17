@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1096.0" prefHeight="768.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RoomTypeSceneController">
+   <children>
+      <TableView fx:id="RoomTypeTable" layoutY="1.0" prefHeight="322.0" prefWidth="1096.0" AnchorPane.bottomAnchor="445.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+         <columns>
+            <TableColumn fx:id="RoomTypeNameColumn" editable="false" minWidth="200.0" prefWidth="75.0" text="Loại phòng" />
+            <TableColumn fx:id="RoomTypePriceColumn" editable="false" minWidth="200.0" prefWidth="75.0" text="Giá phòng" />
+            <TableColumn fx:id="RoomTypeBedNumColumn" editable="false" minWidth="200.0" prefWidth="75.0" text="Số lượng giường" />
+         </columns></TableView>
+      <Label layoutX="86.0" layoutY="349.0" text="Tên loại phòng" AnchorPane.bottomAnchor="391.8" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="890.0" AnchorPane.topAnchor="349.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="86.0" layoutY="406.0" text="Giá phòng">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="86.0" layoutY="465.0" text="Số lượng giường">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="RoomTypeNameTextField" layoutX="235.0" layoutY="343.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="RoomTypePriceTextField" layoutX="235.0" layoutY="400.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="RoomTypeBedNumTextField" layoutX="235.0" layoutY="459.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="AddRoomTypeButton" layoutX="55.0" layoutY="547.0" mnemonicParsing="false" text="Thêm loại phòng mới">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="DeleteRoomTypeButton" disable="true" layoutX="274.0" layoutY="547.0" mnemonicParsing="false" text="Xóa loại phòng">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="EditRoomTypeButton" disable="true" layoutX="446.0" layoutY="547.0" mnemonicParsing="false" text="Chỉnh sửa loại phòng">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
