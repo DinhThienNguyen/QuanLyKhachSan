@@ -27,6 +27,7 @@ public class ControllerRoomGridPane implements Initializable {
     public AnchorPane RoomGridPaneRoot;
     public HBox StatusBarHBox;
     private PhongDAO phongDAO;
+    private LoaiPhongDAO loaiPhongDAO;
     private int RentRoomNum = 0;
     private int FreeRoomNum = 0;
     private int NeedCleanRoom = 0;
@@ -34,10 +35,12 @@ public class ControllerRoomGridPane implements Initializable {
     public GridPane RoomGridPane;
 
     private ContextMenu FloorContextMenu;
+    private ContextMenu RoomContextMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         phongDAO = new PhongDAO();
+        loaiPhongDAO = new LoaiPhongDAO();
 
         RoomGridPaneRoot.setMaxWidth(Double.MAX_VALUE);
         RoomGridPaneRoot.setMaxHeight(Double.MAX_VALUE);
@@ -57,7 +60,7 @@ public class ControllerRoomGridPane implements Initializable {
         StatusBarHBox.getChildren().addAll(RentRoomStatus, FreeRoomStatus, NeedCleanStatus, NeedMaintenanceStatus);
     }
 
-    private void initFloorContextMenu(){
+    private void initFloorContextMenu() {
         FloorContextMenu = new ContextMenu();
         MenuItem addRoom = new MenuItem("Thêm phòng");
         addRoom.setStyle("-fx-font: 18 System;");
@@ -66,6 +69,17 @@ public class ControllerRoomGridPane implements Initializable {
         MenuItem editFloor = new MenuItem("Đổi tên lầu");
         editFloor.setStyle("-fx-font: 18 System;");
         FloorContextMenu.getItems().addAll(addRoom, editFloor);
+    }
+
+    private void initRoomContextMenu() {
+        RoomContextMenu = new ContextMenu();
+        MenuItem rentRoom = new MenuItem("Nhận phòng");
+        rentRoom.setStyle("-fx-font: 18 System;");
+        MenuItem editRoom = new MenuItem("Chỉnh sửa");
+        editRoom.setStyle("-fx-font: 18 System;");
+        MenuItem deleteRoom = new MenuItem("Xóa phòng");
+        deleteRoom.setStyle("-fx-font: 18 System;");
+        RoomContextMenu.getItems().addAll(rentRoom, editRoom, deleteRoom);
     }
 
     private HBox makeStatusHBox(String statusName, int statusNum, int red, int green, int blue) {
@@ -155,7 +169,7 @@ public class ControllerRoomGridPane implements Initializable {
                             public void handle(ActionEvent event) {
                                 AddRoomDialog addRoomDialog = new AddRoomDialog();
                                 boolean result = addRoomDialog.display(lauDTO);
-                                if(result){
+                                if (result) {
                                     refreshRoomGridPane();
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thêm thành công! ", ButtonType.OK);
                                     alert.showAndWait();
@@ -211,10 +225,21 @@ public class ControllerRoomGridPane implements Initializable {
 
         vBox.getChildren().add(labelTenPhong);
 
+        LoaiPhongDTO loaiPhongDTO = loaiPhongDAO.getByID(phongDTO.getMaLoaiPhong());
+        Label labelLoaiPhong = new Label(loaiPhongDTO.getTenLoaiPhong());
+        labelLoaiPhong.setFont(new Font("System", 16));
+        labelLoaiPhong.setTextFill(Color.WHITE);
+        labelLoaiPhong.setMaxWidth(Double.MAX_VALUE);
+        labelLoaiPhong.setAlignment(Pos.CENTER);
+        labelLoaiPhong.setPadding(new Insets(10, 0, 5, 0));
+        labelLoaiPhong.setBackground(new Background(new BackgroundFill(Color.rgb(57, 130, 90), CornerRadii.EMPTY, Insets.EMPTY)));
+        vBox.getChildren().add(labelLoaiPhong);
+
         if (phongDTO.getTinhTrangPhong().equals("Được thuê")) {
             RentRoomNum++;
 
             labelTenPhong.setBackground(new Background(new BackgroundFill(Color.rgb(196, 68, 35), CornerRadii.EMPTY, Insets.EMPTY)));
+            labelLoaiPhong.setBackground(new Background(new BackgroundFill(Color.rgb(196, 68, 35), CornerRadii.EMPTY, Insets.EMPTY)));
             vBox.setBackground(new Background(new BackgroundFill(Color.rgb(196, 68, 35), CornerRadii.EMPTY, Insets.EMPTY)));
 
             PhieuThuePhongDAO phieuThuePhongDAO = new PhieuThuePhongDAO();
@@ -257,6 +282,7 @@ public class ControllerRoomGridPane implements Initializable {
             vBox.setBackground(new Background(new BackgroundFill(Color.rgb(148, 148, 148), CornerRadii.EMPTY, Insets.EMPTY)));
             labelTenPhong.setPadding(new Insets(0, 0, 5, 0));
             labelTenPhong.setBackground(new Background(new BackgroundFill(Color.rgb(148, 148, 148), CornerRadii.EMPTY, Insets.EMPTY)));
+            labelLoaiPhong.setBackground(new Background(new BackgroundFill(Color.rgb(148, 148, 148), CornerRadii.EMPTY, Insets.EMPTY)));
         } else if (phongDTO.getTinhTrangPhong().equals("Trống")) {
             FreeRoomNum++;
         } else if (phongDTO.getTinhTrangPhong().equals("Đang sửa")) {
@@ -267,6 +293,7 @@ public class ControllerRoomGridPane implements Initializable {
             vBox.setBackground(new Background(new BackgroundFill(Color.rgb(44, 44, 44), CornerRadii.EMPTY, Insets.EMPTY)));
             labelTenPhong.setPadding(new Insets(0, 0, 5, 0));
             labelTenPhong.setBackground(new Background(new BackgroundFill(Color.rgb(44, 44, 44), CornerRadii.EMPTY, Insets.EMPTY)));
+            labelLoaiPhong.setBackground(new Background(new BackgroundFill(Color.rgb(44, 44, 44), CornerRadii.EMPTY, Insets.EMPTY)));
         }
         return vBox;
     }

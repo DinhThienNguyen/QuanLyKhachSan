@@ -61,5 +61,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="ClearFieldsButton" layoutX="56.0" layoutY="612.0" mnemonicParsing="false" text="Làm mới">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
